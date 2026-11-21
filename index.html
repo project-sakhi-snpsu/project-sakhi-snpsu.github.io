@@ -649,6 +649,10 @@
     }
 
     function initFirebase() {
+      // Always render default/cached competitions immediately so cards never appear blank
+      loadLocalSettings();
+      renderAll();
+
       const cfg = getActiveFirebaseConfig();
       const pill = document.getElementById("syncStatusPill");
       if (cfg && typeof firebase !== "undefined") {
@@ -672,7 +676,6 @@
               }
             },
             () => {
-              loadLocalSettings();
               renderAll();
             }
           );
@@ -681,8 +684,6 @@
           isFirebaseLive = false;
         }
       }
-      loadLocalSettings();
-      renderAll();
     }
 
     function loadLocalSettings() {
